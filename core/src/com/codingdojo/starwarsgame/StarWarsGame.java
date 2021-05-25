@@ -1,10 +1,12 @@
 package com.codingdojo.starwarsgame;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 
 //THIS IS OUR MAIN SPOT FOR GAME CODE
-public class StarWarsGame extends ApplicationAdapter {
+public class StarWarsGame extends Game {
 
 //HIGH SCORES: Need to decide on time or Tie Fighters shot down for points. High scores page is Arcade style so we don't need login info. 
 	//Will need DB for name entered and score. One to one?
@@ -23,18 +25,27 @@ public class StarWarsGame extends ApplicationAdapter {
 	//5. If time, how do we escalate difficulty? More tie's generated over time? 
 	
 	
-	@Override
-	public void create () {
+	public BitmapFont font;
+	public SpriteBatch batch;
+	
 
-	}
-
-	@Override
-	public void render () {
-
+	public void create() {
+		batch = new SpriteBatch();
+		font = new BitmapFont();
+		this.setScreen(new StartScreen(this));
 	}
 	
-	@Override
-	public void dispose () {
 
+	public void render() {
+		super.render();
 	}
+	
+	
+	public void dispose() {
+		batch.dispose();
+		font.dispose();
+		
+	}
+	
+	
 }
