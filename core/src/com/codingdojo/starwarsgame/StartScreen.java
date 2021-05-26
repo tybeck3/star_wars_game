@@ -35,6 +35,7 @@ public class StartScreen implements Screen{
 		startImage = new Texture(Gdx.files.internal("start_button.png"));
 		startImageActive = new Texture(Gdx.files.internal("start_button_red.png"));
 		scoreFont = new BitmapFont(Gdx.files.internal("fonts/Minecraft.fnt"));
+		scoreFont.getData().setScale(.75f, .75f);
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 	}
@@ -50,11 +51,11 @@ public class StartScreen implements Screen{
 		game.batch.draw(titleImage, 100, 260, TITLE_IMAGE_WIDTH, TITLE_IMAGE_HEIGHT);
 		
 		GlyphLayout highscoreOne = new GlyphLayout(scoreFont, "Player One ___ " + scoreOne);
-		scoreFont.draw(game.batch, highscoreOne, Gdx.graphics.getWidth() / 2 - highscoreOne.width / 2, Gdx.graphics.getHeight() - highscoreOne.height - 180);
+		scoreFont.draw(game.batch, highscoreOne, Gdx.graphics.getWidth() / 2 - highscoreOne.width / 2, Gdx.graphics.getHeight() - highscoreOne.height - 195);
 		GlyphLayout highscoreTwo = new GlyphLayout(scoreFont, "Player Two ___ " + scoreTwo);
-		scoreFont.draw(game.batch, highscoreTwo, Gdx.graphics.getWidth() / 2 - highscoreTwo.width / 2, Gdx.graphics.getHeight() - highscoreTwo.height - 230);
+		scoreFont.draw(game.batch, highscoreTwo, Gdx.graphics.getWidth() / 2 - highscoreTwo.width / 2, Gdx.graphics.getHeight() - highscoreTwo.height - 245);
 		GlyphLayout highscoreThree = new GlyphLayout(scoreFont, "Player Three ___ " + scoreThree);
-		scoreFont.draw(game.batch, highscoreThree, Gdx.graphics.getWidth() / 2 - highscoreThree.width / 2, Gdx.graphics.getHeight() - highscoreTwo.height - 280);
+		scoreFont.draw(game.batch, highscoreThree, Gdx.graphics.getWidth() / 2 - highscoreThree.width / 2, Gdx.graphics.getHeight() - highscoreTwo.height - 295);
 		
 		int x = Gdx.graphics.getWidth() / 2 - START_BUTTON_WIDTH / 2;
 		int y = Gdx.graphics.getHeight() - START_BUTTON_HEIGHT - 55;
