@@ -46,7 +46,7 @@ public class GameScreen implements Screen{
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 		
-		//REPLACED WITH LUKE'S XWING
+		
 		xwing = new Rectangle();
 		xwing.x= 800 / 2 - 64 / 2;
 		xwing.y = 20;
