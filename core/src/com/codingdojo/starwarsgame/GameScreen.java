@@ -3,6 +3,7 @@ package com.codingdojo.starwarsgame;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -28,6 +29,8 @@ public class GameScreen implements Screen{
 	private Texture tieImage;
 	private Texture xWing;
 	private Texture background;
+	private Sound backgroundMusic;
+	private long backgroundSoundId;
 
 
 
@@ -38,10 +41,12 @@ public class GameScreen implements Screen{
 		tieImage = new Texture(Gdx.files.internal("tie_interceptor.png"));
 		xWing = new Texture(Gdx.files.internal("x_wing.png"));
 		background = new Texture(Gdx.files.internal("star-wars-background.jpg"));
+
 		//find audio for star wars theme.
-//		dropSound = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-//		rainMusic = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
-//		rainMusic.setLooping(true);
+		backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("sound_effects/background_music.wav"));
+		backgroundSoundId = backgroundMusic.play(0.5f);
+		backgroundMusic.setLooping(backgroundSoundId, true);
+
 		
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
@@ -106,14 +111,13 @@ public class GameScreen implements Screen{
 //				dropSound.play();
 				iter.remove();
 				xWing = new Texture(Gdx.files.internal("blown_up.png"));
-				stopRendering();
-				if(Gdx.input.isTouched()){
-					//Restart game method.
-				}
+
+
 			}
 		}
 
 	}
+
 
 
 	public void stopRendering() {
