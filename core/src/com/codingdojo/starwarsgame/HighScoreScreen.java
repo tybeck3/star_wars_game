@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
-public class GameOverScreen implements Screen {
+public class HighScoreScreen implements Screen {
 	private static final int GAME_OVER_WIDTH = 400;
 	private static final int GAME_OVER_HEIGHT = 100;
 	private static final int NEW_HIGH_SCORE_WIDTH = 300;
@@ -32,7 +32,7 @@ public class GameOverScreen implements Screen {
 	GlyphLayout highscoreText;
 	
 	
-	public GameOverScreen(StarWarsGame game, int score) {
+	public HighScoreScreen(StarWarsGame game, int score) {
 		this.game = game;
 		this.score = score;
 		
