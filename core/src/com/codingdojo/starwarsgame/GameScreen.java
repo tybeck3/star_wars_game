@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -107,15 +108,17 @@ public class GameScreen implements Screen{
 			Rectangle interceptor = iter.next();
 			interceptor.y -= 200 * Gdx.graphics.getDeltaTime();
 			if(interceptor.y + 64 < 0) iter.remove();
+
 			// Destroy lukes xwing with audio.
 			if(interceptor.overlaps(xwing)) {
 				iter.remove();
 				xWing = new Texture(Gdx.files.internal("blown_up.png"));
 				xwingExplosion.play();
+				backgroundMusic.stop();
+				stopRendering();
 
 			}
 		}
-
 	}
 
 
@@ -123,6 +126,8 @@ public class GameScreen implements Screen{
 	public void stopRendering() {
 		Gdx.graphics.setContinuousRendering(false);
 		Gdx.graphics.requestRendering();
+		game.setScreen(new HighScoreScreen(game));
+
 	}
 
 	@Override

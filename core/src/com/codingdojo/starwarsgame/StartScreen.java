@@ -50,11 +50,11 @@ public class StartScreen implements Screen{
 		game.batch.begin();
 		game.batch.draw(titleImage, 100, 260, TITLE_IMAGE_WIDTH, TITLE_IMAGE_HEIGHT);
 		
-		GlyphLayout highscoreOne = new GlyphLayout(scoreFont, "Player One ___ " + scoreOne);
+		GlyphLayout highscoreOne = new GlyphLayout(scoreFont, "Player One - " + scoreOne);
 		scoreFont.draw(game.batch, highscoreOne, Gdx.graphics.getWidth() / 2 - highscoreOne.width / 2, Gdx.graphics.getHeight() - highscoreOne.height - 195);
-		GlyphLayout highscoreTwo = new GlyphLayout(scoreFont, "Player Two ___ " + scoreTwo);
+		GlyphLayout highscoreTwo = new GlyphLayout(scoreFont, "Player Two - " + scoreTwo);
 		scoreFont.draw(game.batch, highscoreTwo, Gdx.graphics.getWidth() / 2 - highscoreTwo.width / 2, Gdx.graphics.getHeight() - highscoreTwo.height - 245);
-		GlyphLayout highscoreThree = new GlyphLayout(scoreFont, "Player Three ___ " + scoreThree);
+		GlyphLayout highscoreThree = new GlyphLayout(scoreFont, "Player Three - " + scoreThree);
 		scoreFont.draw(game.batch, highscoreThree, Gdx.graphics.getWidth() / 2 - highscoreThree.width / 2, Gdx.graphics.getHeight() - highscoreTwo.height - 295);
 		
 		int x = Gdx.graphics.getWidth() / 2 - START_BUTTON_WIDTH / 2;
