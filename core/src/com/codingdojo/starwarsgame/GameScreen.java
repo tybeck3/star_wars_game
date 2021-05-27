@@ -1,12 +1,15 @@
 package com.codingdojo.starwarsgame;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -15,8 +18,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-
-import java.util.Iterator;
+import com.codingdojo.starwarsgame.entities.Bullet;
 
 public class GameScreen implements Screen{
 	final StarWarsGame game;
@@ -34,10 +36,12 @@ public class GameScreen implements Screen{
 	private long backgroundSoundId;
 	private Sound xwingExplosion;
 
+	ArrayList<Bullet> bullets;
 
 
 	public GameScreen(final StarWarsGame game) {
 		this.game = game;
+		bullets = new ArrayList<Bullet>();
 		
 		//Changed to tie fighters
 		tieImage = new Texture(Gdx.files.internal("tie_interceptor.png"));
@@ -76,6 +80,19 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void render(float delta) {
+		//Shooting Code
+				if(Gdx.input.isButtonJustPressed(Keys.SPACE)) {
+					bullets.add(new Bullet(xwing.x));
+				}
+				
+				//update bullets
+				ArrayList<Bullet> bulletsToRemove = new ArrayList<Bullet>();
+				for(Bullet bullet : bullets) {
+					bullet.update(delta);
+					if(bullet.remove)
+						bulletsToRemove.add(bullet);
+				}
+				bullets.removeAll(bulletsToRemove);
 		ScreenUtils.clear(0, 0, 0, 1);
 		camera.update();
 		game.batch.setProjectionMatrix(camera.combined);
@@ -84,6 +101,9 @@ public class GameScreen implements Screen{
 		game.batch.draw(xWing, xwing.x, xwing.y);
 		for(Rectangle fighters: tieFighters) {
 			game.batch.draw(tieImage, fighters.x, fighters.y);
+		}
+		for(Bullet bullet : bullets) {
+			bullet.render(game.batch);
 		}
 		game.batch.end();
 

@@ -6,4 +6,10 @@
   <component name="ProjectType">
     <option name="id" value="Android" />
   </component>
+<<<<<<< HEAD
+=======
+  <component name="ProjectRootManager">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component
+>>>>>>> b8ada0bd2bbb33036fd28cf4cfebdde31b284126
 </project>
