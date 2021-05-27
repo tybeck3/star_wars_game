@@ -155,20 +155,30 @@ public class GameScreen implements Screen{
 			if(bullet.y + 64 < 0) iter.remove();
 
 			// suppose to Destroy tieFighters on impact
-			if(tieFighter.overlaps(bullet)) {
-				iter.remove();
-				tieImage = new Texture(Gdx.files.internal("blown_up.png"));
-				tieFighterExplosion.play(0.1f);
-				System.out.println("hit");
+		}
+		
+		for (Rectangle bullet: bullets) {
+			for (Rectangle fighter: tieFighters) {
+				if(fighter.overlaps(bullet)) {
+//					tieImage = new Texture(Gdx.files.internal("blown_up.png"));
+					tieFighterExplosion.play();
+					System.out.println("hit");
+				}
 			}
 		}
+		
 	}
 
 
 
 	public void stopRendering() {
+		Gdx.graphics.setContinuousRendering(false);
+		Gdx.graphics.requestRendering();
 		game.setScreen(new GameOverScreen(game, tieFightersDestroyed));
 		dispose();
+
+
+
 	}
 
 	@Override
