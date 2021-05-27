@@ -1,15 +1,22 @@
 package com.codingdojo.starwarsgame;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class HighScoreScreen implements Screen {
 	
 	private static final int HIGHSCORE_TITLE_WIDTH = 250;
 	private static final int HIGHSCORE_TITLE_HEIGHT = 50;
-	
-	final StarWarsGame game;
+	private Viewport viewPort;
+	private Stage stage;
+
+
+	StarWarsGame game;
 	int score, highscoreOne, highscoreTwo, highscoreThree, highscoreFour, highscoreFive, highscoreSix, highscoreSeven, highscoreEight, highscoreNine, highscoreTen;
 	Texture highscoreTitle;
 	
@@ -17,9 +24,13 @@ public class HighScoreScreen implements Screen {
 	public HighScoreScreen(StarWarsGame game, int score) {
 		this.game = game;
 		this.score = score;
-		
+
 		highscoreTitle = new Texture(Gdx.files.internal("high_scores.png"));
 		
+	}
+
+	public HighScoreScreen(StarWarsGame game) {
+
 	}
 
 	@Override
