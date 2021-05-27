@@ -118,6 +118,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+
 ### Gradle ###
 .gradle
 build/
@@ -135,4 +136,4 @@ gradle-app.setting
 # gradle/wrapper/gradle-wrapper.properties
 
 ### Gradle Patch ###
-**/build/
+
