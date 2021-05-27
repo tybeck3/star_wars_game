@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 public class GameOverScreen implements Screen {
-	private static final int GAME_OVER_WIDTH = 400;
-	private static final int GAME_OVER_HEIGHT = 100;
+	private static final int GAME_OVER_WIDTH = 500;
+	private static final int GAME_OVER_HEIGHT = 125;
 	private static final int NEW_HIGH_SCORE_WIDTH = 300;
 	private static final int NEW_HIGH_SCORE_HEIGHT = 50;
 	private static final int TRY_AGAIN_WIDTH = 200;
@@ -46,7 +46,7 @@ public class GameOverScreen implements Screen {
 		
 		Preferences prefs = Gdx.app.getPreferences("starWarsGame");
 		this.highscore = prefs.getInteger("highscoreOne", 0);
-		if(score == highscore){
+		if(score > highscore){
 			newHighscoreBanner = new Texture(Gdx.files.internal("new_high_score.png"));
 			prefs.putInteger("highscoreOne", score);
 			prefs.flush();
@@ -65,25 +65,38 @@ public class GameOverScreen implements Screen {
 		game.batch.setProjectionMatrix(camera.combined);
 		
 		game.batch.begin();
-		game.batch.draw(gameOver, 100, 260, GAME_OVER_WIDTH, GAME_OVER_HEIGHT);
+		game.batch.draw(gameOver, Gdx.graphics.getWidth() / 2 - GAME_OVER_WIDTH / 2, Gdx.graphics.getHeight() - GAME_OVER_HEIGHT - 50, GAME_OVER_WIDTH, GAME_OVER_HEIGHT);
 		
 		if(newHighscoreBanner != null) {
-			game.batch.draw(newHighscoreBanner, Gdx.graphics.getWidth() / 2 - NEW_HIGH_SCORE_WIDTH / 2, Gdx.graphics.getHeight() - NEW_HIGH_SCORE_HEIGHT - 220, NEW_HIGH_SCORE_WIDTH, NEW_HIGH_SCORE_HEIGHT);			
+			game.batch.draw(newHighscoreBanner, Gdx.graphics.getWidth() / 2 - NEW_HIGH_SCORE_WIDTH / 2, Gdx.graphics.getHeight() - NEW_HIGH_SCORE_HEIGHT - 200, NEW_HIGH_SCORE_WIDTH, NEW_HIGH_SCORE_HEIGHT);			
 		}
-		GlyphLayout newHighscore = new GlyphLayout(scoreFont, "" + score);
+		
+		GlyphLayout newHighscore = new GlyphLayout(scoreFont, "Your score: " + score);
 		scoreFont.draw(game.batch, newHighscore, Gdx.graphics.getWidth() / 2 - newHighscore.width / 2, Gdx.graphics.getHeight() - newHighscore.height - 240);
 		
 		
 		int x = Gdx.graphics.getWidth() / 2 - TRY_AGAIN_WIDTH / 2;
-		int y = Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 55;
+		int y = Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 100;
 		if(Gdx.input.getX() < x + TRY_AGAIN_WIDTH && Gdx.input.getX() > x && Gdx.input.getY() < y + TRY_AGAIN_HEIGHT && Gdx.input.getY() > y) {
-			game.batch.draw(tryAgainActive, Gdx.graphics.getWidth() / 2 - TRY_AGAIN_WIDTH / 2, Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 375, TRY_AGAIN_WIDTH, TRY_AGAIN_HEIGHT);
+			game.batch.draw(tryAgainActive, Gdx.graphics.getWidth() / 2 - TRY_AGAIN_WIDTH / 2, Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 330, TRY_AGAIN_WIDTH, TRY_AGAIN_HEIGHT);
 			if(Gdx.input.isTouched()) {
 				game.setScreen(new GameScreen(game));
 				dispose();
 			}
 		} else {
-			game.batch.draw(tryAgain, Gdx.graphics.getWidth() / 2 - TRY_AGAIN_WIDTH / 2, Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 375, TRY_AGAIN_WIDTH, TRY_AGAIN_HEIGHT);
+			game.batch.draw(tryAgain, Gdx.graphics.getWidth() / 2 - TRY_AGAIN_WIDTH / 2, Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 330, TRY_AGAIN_WIDTH, TRY_AGAIN_HEIGHT);
+		}
+		
+		int w = Gdx.graphics.getWidth() / 2 - QUIT_WIDTH / 2;
+		int h = Gdx.graphics.getHeight() - QUIT_HEIGHT - 35;
+		if(Gdx.input.getX() < w + QUIT_WIDTH && Gdx.input.getX() > w && Gdx.input.getY() < h + QUIT_HEIGHT && Gdx.input.getY() > h) {
+			game.batch.draw(quitActive, Gdx.graphics.getWidth() / 2 - QUIT_WIDTH / 2, Gdx.graphics.getHeight() - QUIT_HEIGHT - 395, QUIT_WIDTH, QUIT_HEIGHT);
+			if(Gdx.input.isTouched()) {
+				game.setScreen(new StartScreen(game));
+				dispose();
+			}
+		} else {
+			game.batch.draw(quit, Gdx.graphics.getWidth() / 2 - QUIT_WIDTH / 2, Gdx.graphics.getHeight() - QUIT_HEIGHT - 395, QUIT_WIDTH, QUIT_HEIGHT);
 		}
 		game.batch.end();
 

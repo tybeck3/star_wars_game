@@ -9,14 +9,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 //THIS IS OUR MAIN SPOT FOR GAME CODE
 public class StarWarsGame extends Game {
 
-//HIGH SCORES: Need to decide on time or Tie Fighters shot down for points. High scores page is Arcade style so we don't need login info. 
-	//Will need DB for name entered and score. One to one?
-	
-//GRAPHICS: RO Michael can you do something cool?
-	
-//START PAGE: Start button, Title, top 3 scores
-	
-//Death Star Destroyed animation? Are we trying for that?
 
 //Take this project one step at a time:
 	//1. X Wing instead of bucket(tutorial), tie fighters instead of drops.
