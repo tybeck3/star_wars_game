@@ -136,7 +136,8 @@ public class GameScreen implements Screen{
 				xwingExplosion.play();
 				backgroundMusic.stop();
 				stopRendering();
-
+				game.setScreen(new GameOverScreen(game, tieFightersDestroyed));
+				dispose();
 			}
 		}
 	}
@@ -146,7 +147,7 @@ public class GameScreen implements Screen{
 	public void stopRendering() {
 		Gdx.graphics.setContinuousRendering(false);
 		Gdx.graphics.requestRendering();
-		game.setScreen(new GameOverScreen(game, tieFightersDestroyed));
+		
 
 	}
 
@@ -174,7 +175,11 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		//WE HAVE TO CALL THIS MANUALLY FROM SOMEWHERE. NOT SURE HOW
+		backgroundMusic.dispose();
+		background.dispose();
+		xWing.dispose();
+		xwingExplosion.dispose();
+		tieImage.dispose();
 	}
 
 }
