@@ -148,6 +148,7 @@ public class GameScreen implements Screen{
 		Gdx.graphics.requestRendering();
 		game.setScreen(new GameOverScreen(game, tieFightersDestroyed));
 		dispose();
+		
 
 	}
 

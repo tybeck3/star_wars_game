@@ -134,7 +134,14 @@ public class GameOverScreen implements Screen {
 
 	@Override
 	public void dispose() {
-		// TODO Auto-generated method stub
+		if(newHighscoreBanner != null) {
+			newHighscoreBanner.dispose();
+		}
+		gameOver.dispose();          
+		tryAgain.dispose();          
+		tryAgainActive.dispose();    
+		quit.dispose();              
+		quitActive.dispose();;        
 
 	}
 
