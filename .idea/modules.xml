@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/star_wars_game.iml" filepath="$PROJECT_DIR$/.idea/modules/star_wars_game.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/core/star_wars_game.core.iml" filepath="$PROJECT_DIR$/.idea/modules/core/star_wars_game.core.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/desktop/star_wars_game.desktop.iml" filepath="$PROJECT_DIR$/.idea/modules/desktop/star_wars_game.desktop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/html/star_wars_game.html.iml" filepath="$PROJECT_DIR$/.idea/modules/html/star_wars_game.html.iml" />
+    </modules>
+  </component>
+</project>
