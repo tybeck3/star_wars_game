@@ -146,7 +146,7 @@ public class GameScreen implements Screen{
 	public void stopRendering() {
 		Gdx.graphics.setContinuousRendering(false);
 		Gdx.graphics.requestRendering();
-		game.setScreen(new HighScoreScreen(game));
+		game.setScreen(new GameOverScreen(game, tieFightersDestroyed));
 
 	}
 
