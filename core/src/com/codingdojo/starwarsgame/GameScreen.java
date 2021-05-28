@@ -1,24 +1,22 @@
 package com.codingdojo.starwarsgame;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-import com.codingdojo.starwarsgame.entities.Bullet;
 
 public class GameScreen implements Screen{
 	final StarWarsGame game;
@@ -41,6 +39,7 @@ public class GameScreen implements Screen{
 	private long backgroundSoundId;
 	private Sound xwingExplosion;
 	private Texture xwingBlast;
+	BitmapFont scoreFont;
 
 
 
@@ -60,10 +59,11 @@ public class GameScreen implements Screen{
 		backgroundMusic.setLooping(backgroundSoundId, true);
 		xwingExplosion = Gdx.audio.newSound(Gdx.files.internal("sound_effects/xwing_explode.mp3"));
 		tieFighterExplosion = Gdx.audio.newSound(Gdx.files.internal("sound_effects/tieFighterExplode.mp3"));
-
+		scoreFont = new BitmapFont(Gdx.files.internal("fonts/minecraft.fnt"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
 		
+		tieFightersDestroyed = 0;
 		
 		xwing = new Rectangle();
 		xwing.x= 800 / 2 - 64 / 2;
@@ -113,7 +113,10 @@ public class GameScreen implements Screen{
 		for(Rectangle bullet: bullets) {
 			game.batch.draw(xwingBlast, bullet.x, bullet.y);
 		}
-
+		
+		GlyphLayout scoreLayout = new GlyphLayout(scoreFont, "" + tieFightersDestroyed);
+		scoreFont.draw(game.batch, scoreLayout, Gdx.graphics.getWidth() / 2 - scoreLayout.width / 2, Gdx.graphics.getHeight() - scoreLayout.height - 10);
+		
 		game.batch.end();
 
 
@@ -152,24 +155,27 @@ public class GameScreen implements Screen{
 		for (Iterator<Rectangle> iter = bullets.iterator(); iter.hasNext(); ) {
 			Rectangle bullet = iter.next();
 			bullet.y += 400 * Gdx.graphics.getDeltaTime();
-			if(bullet.y + 64 < 0) iter.remove();
+			if(bullet.y + 64 > 800) iter.remove();
 
-			// suppose to Destroy tieFighters on impact
+
 		}
 		
 		for (Rectangle bullet: bullets) {
 			for (Rectangle fighter: tieFighters) {
 				if(fighter.overlaps(bullet)) {
-//					tieImage = new Texture(Gdx.files.internal("blown_up.png"));
-					tieFighterExplosion.play();
-					System.out.println("hit");
+					fighter.setY(3000000);
+					bullet.setY(3000000);
+                    tieFighterExplosion.play(0.1f);
+                 
+					tieFightersDestroyed += 100;
 				}
 			}
 		}
 		
+		
 	}
 
-
+	
 
 	public void stopRendering() {
 		Gdx.graphics.setContinuousRendering(false);
@@ -208,7 +214,6 @@ public class GameScreen implements Screen{
 		backgroundMusic.dispose();
 		background.dispose();
 		xWing.dispose();
-		
 		tieImage.dispose();
 	}
 
