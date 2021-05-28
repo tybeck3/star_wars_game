@@ -1,6 +1,7 @@
 package com.codingdojo.starwarsgame;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -36,6 +37,9 @@ public class StartScreen implements Screen{
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
+		
+		Preferences prefs = Gdx.app.getPreferences("starWarsGame");
+		this.scoreOne = prefs.getInteger("highscoreOne", 0);
 	}
 	
 	@Override
