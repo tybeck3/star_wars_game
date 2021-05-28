@@ -38,6 +38,7 @@ public class GameScreen implements Screen{
 	private Sound tieFighterExplosion;
 	private long backgroundSoundId;
 	private Sound xwingExplosion;
+	private Sound xwingFire;
 	private Texture xwingBlast;
 	BitmapFont scoreFont;
 
@@ -52,12 +53,13 @@ public class GameScreen implements Screen{
 		tieImage = new Texture(Gdx.files.internal("tie_interceptor.png"));
 		xWing = new Texture(Gdx.files.internal("x_wing.png"));
 		background = new Texture(Gdx.files.internal("star-wars-background.jpg"));
-		xwingBlast = new Texture(Gdx.files.internal("xwing_bullet.png"));
+		xwingBlast = new Texture(Gdx.files.internal("xwing_double_bullet.png"));
 		//find audio for star wars theme.
 		backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("sound_effects/background_music.wav"));
 		backgroundSoundId = backgroundMusic.play(0.1f);
 		backgroundMusic.setLooping(backgroundSoundId, true);
 		xwingExplosion = Gdx.audio.newSound(Gdx.files.internal("sound_effects/xwing_explode.mp3"));
+		xwingFire = Gdx.audio.newSound(Gdx.files.internal("sound_effects/xwing_fire.mp3"));
 		tieFighterExplosion = Gdx.audio.newSound(Gdx.files.internal("sound_effects/tieFighterExplode.mp3"));
 		scoreFont = new BitmapFont(Gdx.files.internal("fonts/minecraft.fnt"));
 		camera = new OrthographicCamera();
@@ -81,21 +83,23 @@ public class GameScreen implements Screen{
 	
 	private void spawnTieFighter() {
 		Rectangle tieFighter = new Rectangle();
-		tieFighter.x = MathUtils.random(0, 800-64);
+		tieFighter.x = MathUtils.random(0, 800-44);
 		tieFighter.y = 480;
-		tieFighter.width = 64;
-		tieFighter.height = 64;
+		tieFighter.width = 44;
+		tieFighter.height = 48;
 		tieFighters.add(tieFighter);
 		lastDropTime = TimeUtils.nanoTime();
 	}
 
 	private void fireWeapon() {
 		Rectangle bullet = new Rectangle();
-		bullet.x = xwing.x + 20;
-		bullet.y = xwing.y;
+//		bullet.x = xwing.x + 20; for single bullet
+		bullet.x = xwing.x;
+		bullet.y = xwing.y + 28;
 		bullet.width = 64;
-		bullet.height = 64;
+		bullet.height = 14;
 		bullets.add(bullet);
+		xwingFire.play(0.1f);
 		lastBulletTime = TimeUtils.nanoTime();
 	}
 	@Override
@@ -127,14 +131,18 @@ public class GameScreen implements Screen{
 			xwing.x = touchPos.x - 64/2;
 		}
 
-		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) xwing.x -= 200 * Gdx.graphics.getDeltaTime();
-		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) xwing.x += 200 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.LEFT)) xwing.x -= 400 * Gdx.graphics.getDeltaTime();
+		if(Gdx.input.isKeyPressed(Input.Keys.RIGHT)) xwing.x += 400 * Gdx.graphics.getDeltaTime();
 
 		if(xwing.x < 0) xwing.x = 0;
 		if(xwing.x > 800 - 64) xwing.x = 800 - 64;
 
-		if(TimeUtils.nanoTime() - lastDropTime > 1000000000) spawnTieFighter();
-		if(TimeUtils.nanoTime() - lastBulletTime > 1000000000) fireWeapon();
+		if(TimeUtils.nanoTime() - lastDropTime > 500000000) spawnTieFighter();
+		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
+			if(TimeUtils.nanoTime() - lastBulletTime > 150000000) {
+				fireWeapon();
+			}
+		}
 
 		for (Iterator<Rectangle> iter = tieFighters.iterator(); iter.hasNext(); ) {
 			Rectangle interceptor = iter.next();
@@ -165,7 +173,7 @@ public class GameScreen implements Screen{
 				if(fighter.overlaps(bullet)) {
 					fighter.setY(3000000);
 					bullet.setY(3000000);
-                    tieFighterExplosion.play(0.1f);
+                    tieFighterExplosion.play(0.05f);
                  
 					tieFightersDestroyed += 100;
 				}
