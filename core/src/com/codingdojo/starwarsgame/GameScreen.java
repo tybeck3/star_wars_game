@@ -41,7 +41,7 @@ public class GameScreen implements Screen{
 	private Sound xwingFire;
 	private Texture xwingBlast;
 	BitmapFont scoreFont;
-
+	int shotsFired;
 
 
 
@@ -53,7 +53,7 @@ public class GameScreen implements Screen{
 		tieImage = new Texture(Gdx.files.internal("tie_interceptor.png"));
 		xWing = new Texture(Gdx.files.internal("x_wing.png"));
 		background = new Texture(Gdx.files.internal("star-wars-background.jpg"));
-		xwingBlast = new Texture(Gdx.files.internal("xwing_double_bullet.png"));
+		xwingBlast = new Texture(Gdx.files.internal("xwing_bullet.png"));
 		//find audio for star wars theme.
 		backgroundMusic = Gdx.audio.newSound(Gdx.files.internal("sound_effects/background_music.wav"));
 		backgroundSoundId = backgroundMusic.play(0.1f);
@@ -64,8 +64,9 @@ public class GameScreen implements Screen{
 		scoreFont = new BitmapFont(Gdx.files.internal("fonts/minecraft.fnt"));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 800, 480);
-		
+		shotsFired = 0;
 		tieFightersDestroyed = 0;
+		
 		
 		xwing = new Rectangle();
 		xwing.x= 800 / 2 - 64 / 2;
@@ -93,14 +94,25 @@ public class GameScreen implements Screen{
 
 	private void fireWeapon() {
 		Rectangle bullet = new Rectangle();
-//		bullet.x = xwing.x + 20; for single bullet
 		bullet.x = xwing.x;
-		bullet.y = xwing.y + 28;
-		bullet.width = 64;
+		bullet.y = xwing.y + 30;
+		bullet.width = 3;
 		bullet.height = 14;
 		bullets.add(bullet);
 		xwingFire.play(0.1f);
 		lastBulletTime = TimeUtils.nanoTime();
+	}
+	
+	private void fireWeaponAlternate() {
+		Rectangle bullet = new Rectangle();
+		bullet.x = xwing.x + 61;
+		bullet.y = xwing.y + 30;
+		bullet.width = 3;
+		bullet.height = 14;
+		bullets.add(bullet);
+		xwingFire.play(0.1f);
+		lastBulletTime = TimeUtils.nanoTime();
+		
 	}
 	@Override
 	public void render(float delta) {
@@ -138,10 +150,18 @@ public class GameScreen implements Screen{
 		if(xwing.x > 800 - 64) xwing.x = 800 - 64;
 
 		if(TimeUtils.nanoTime() - lastDropTime > 500000000) spawnTieFighter();
+		
 		if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) {
-			if(TimeUtils.nanoTime() - lastBulletTime > 150000000) {
-				fireWeapon();
-			}
+			if(TimeUtils.nanoTime() - lastBulletTime > 125000000) {
+					if(shotsFired % 2 == 0) {
+						fireWeapon();
+						shotsFired++;
+					} else {
+						fireWeaponAlternate();
+						shotsFired++;
+					}
+				}
+			
 		}
 
 		for (Iterator<Rectangle> iter = tieFighters.iterator(); iter.hasNext(); ) {
