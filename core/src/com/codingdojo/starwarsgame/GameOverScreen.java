@@ -80,8 +80,10 @@ public class GameOverScreen implements Screen {
 		if(Gdx.input.getX() < x + TRY_AGAIN_WIDTH && Gdx.input.getX() > x && Gdx.input.getY() < y + TRY_AGAIN_HEIGHT && Gdx.input.getY() > y) {
 			game.batch.draw(tryAgainActive, Gdx.graphics.getWidth() / 2 - TRY_AGAIN_WIDTH / 2, Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 330, TRY_AGAIN_WIDTH, TRY_AGAIN_HEIGHT);
 			if(Gdx.input.isTouched()) {
+				this.dispose();
+				game.batch.end();
 				game.setScreen(new GameScreen(game));
-				dispose();
+				return;
 			}
 		} else {
 			game.batch.draw(tryAgain, Gdx.graphics.getWidth() / 2 - TRY_AGAIN_WIDTH / 2, Gdx.graphics.getHeight() - TRY_AGAIN_HEIGHT - 330, TRY_AGAIN_WIDTH, TRY_AGAIN_HEIGHT);
@@ -92,8 +94,10 @@ public class GameOverScreen implements Screen {
 		if(Gdx.input.getX() < w + QUIT_WIDTH && Gdx.input.getX() > w && Gdx.input.getY() < h + QUIT_HEIGHT && Gdx.input.getY() > h) {
 			game.batch.draw(quitActive, Gdx.graphics.getWidth() / 2 - QUIT_WIDTH / 2, Gdx.graphics.getHeight() - QUIT_HEIGHT - 395, QUIT_WIDTH, QUIT_HEIGHT);
 			if(Gdx.input.isTouched()) {
+				this.dispose();
+				game.batch.end();
 				game.setScreen(new StartScreen(game));
-				dispose();
+				return;
 			}
 		} else {
 			game.batch.draw(quit, Gdx.graphics.getWidth() / 2 - QUIT_WIDTH / 2, Gdx.graphics.getHeight() - QUIT_HEIGHT - 395, QUIT_WIDTH, QUIT_HEIGHT);

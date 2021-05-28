@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
@@ -21,7 +20,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class GameScreen implements Screen{
 	final StarWarsGame game;
 	
-	private SpriteBatch batch;
 	private OrthographicCamera camera;
 	private Rectangle xwing;
 	private Rectangle tieFighter;
@@ -206,10 +204,11 @@ public class GameScreen implements Screen{
 	
 
 	public void stopRendering() {
-		Gdx.graphics.setContinuousRendering(false);
-		Gdx.graphics.requestRendering();
+//		Gdx.graphics.setContinuousRendering(false);
+//		Gdx.graphics.requestRendering();
+		this.dispose();
 		game.setScreen(new GameOverScreen(game, tieFightersDestroyed));
-		dispose();
+		
 
 
 
@@ -239,10 +238,11 @@ public class GameScreen implements Screen{
 
 	@Override
 	public void dispose() {
-		backgroundMusic.dispose();
-		background.dispose();
-		xWing.dispose();
-		tieImage.dispose();
+//		backgroundMusic.dispose();
+//		background.dispose();
+//		xWing.dispose();
+//		tieImage.dispose();
+		
 	}
 
 }
